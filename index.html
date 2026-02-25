@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <link rel="icon" href="sait2.jpg" type="image/jpg">
     <meta charset="UTF-8">
-    <title>Главная - TechnoStore</title>
+    <title>TechnoStore - Главная</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body bgcolor="#E0E0E0" text="#000000">
-    <center>
-        <table width="800" bgcolor="#333333" cellpadding="15">
-            <tr>
-                <td>
-                    <a href="index.html"><font color="white"><b>ГЛАВНАЯ</b></font></a>&nbsp;&nbsp;&nbsp;
-                    <a href="catalog.html"><font color="white"><b>КАТАЛОГ</b></font></a>&nbsp;&nbsp;&nbsp;
-                    <a href="contacts.html"><font color="white"><b>КОНТАКТЫ</b></font></a>
-                </td>
-            </tr>
-        </table>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">TechnoStore</a>
+            <nav class="menu">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+        </div>
+    </header>
 
-        <br><br>
-        <h1>Добро пожаловать в TechnoStore</h1>
-        <hr width="400">
-        <p>Мы предлагаем лучшие комплектующие для вашего ПК в Кишиневе.</p>
-        <br>
-        <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400" width="400" border="5">
-    </center>
+    <div class="container">
+        <div style="background: #333; color: white; padding: 60px; border-radius: 15px; margin-top: 20px; text-align: center;">
+            <h1>Обнови свой сетап сегодня</h1>
+            <br>
+            <a href="catalog.html" class="btn">Перейти в каталог</a>
+        </div>
+        
+        <h2>Новинки</h2>
+        <div class="grid" id="new-items"></div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        const container = document.getElementById('new-items');
+        products.slice(0, 3).forEach(p => {
+            container.innerHTML += `
+                <div class="card">
+                    <img src="${p.image}">
+                    <h3>${p.name}</h3>
+                    <span class="price">${p.price} MDL</span>
+                    <a href="product.html?id=${p.id}" class="btn">Подробнее</a>
+                </div>
+            `;
+        });
+    </script>
 </body>
 </html>

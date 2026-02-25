@@ -1,35 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <link rel="icon" href="sait2.jpg" type="image/jpg">
     <meta charset="UTF-8">
-    <title>Контакты</title>
+    <title>TechnoStore - Контакты</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body bgcolor="#F0F0F0">
-    <a href="index.html">На главную</a>
-    <h1 align="center">Связаться с нами</h1>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">TechnoStore</a>
+            <nav class="menu">
+                <a href="index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+        </div>
+        
+    </header>
 
-    <center>
-        <form action="index.html">
-            <table bgcolor="white" border="1" cellpadding="15">
-                <tr>
-                    <td>Имя:</td>
-                    <td><input type="text" name="username" size="30"></td>
-                </tr>
-                <tr>
-                    <td>Телефон:</td>
-                    <td><input type="text" name="phone" size="30"></td>
-                </tr>
-                <tr>
-                    <td>Сообщение:</td>
-                    <td><textarea rows="5" cols="25"></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="ОТПРАВИТЬ ЗАЯВКУ">
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </center>
+    <div class="container">
+        <h1>Наши контакты</h1>
+        <div style="display: flex; gap: 40px;">
+            <div style="flex: 1;">
+                <p>🌏 <strong>Адрес:</strong> Кишинев</p>
+                <p>📞 <strong>Телефон:</strong> +373 69 000 000</p>
+                <p>📧 <strong>Email:</strong> sales@technostore.md</p>
+            </div>
+            <div style="flex: 1; background: white; padding: 20px; border-radius: 10px;">
+                <h3>Напишите нам</h3>
+                <input type="text" placeholder="Ваше имя" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                <input type="email" placeholder="Email" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+                <textarea placeholder="Сообщение" style="width: 100%; padding: 10px; margin-bottom: 10px;"></textarea>
+                <button class="btn">Отправить</button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
