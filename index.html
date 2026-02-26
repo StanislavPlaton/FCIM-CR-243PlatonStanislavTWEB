@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="icon" href="sait2.jpg" type="image/jpg">
+    <link rel="icon" href="../jpg/sait2.jpg" type="image/jpg">
     <meta charset="UTF-8">
     <title>TechnoStore - Главная</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <header>
@@ -12,37 +13,44 @@
             <a href="index.html" class="logo">TechnoStore</a>
             <nav class="menu">
                 <a href="index.html">Главная</a>
-                <a href="catalog.html">Каталог</a>
-                <a href="contacts.html">Контакты</a>
+                <a href="pages/catalog.html">Каталог</a>
+                <a href="pages/contacts.html">Контакты</a>
             </nav>
-            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+            <a href="pages/cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
         </div>
     </header>
 
     <div class="container">
-        <div style="background: #333; color: white; padding: 60px; border-radius: 15px; margin-top: 20px; text-align: center;">
+        <div class="hero">
             <h1>Обнови свой сетап сегодня</h1>
             <br>
-            <a href="catalog.html" class="btn">Перейти в каталог</a>
+            <a href="pages/catalog.html" class="btn-hero">Перейти в каталог</a>
         </div>
         
         <h2>Новинки</h2>
-        <div class="grid" id="new-items"></div>
-    </div>
+        
+        <div class="grid">
+            <div class="card">
+                <img src="https://xstore.md/images/htag/asus-rog-strix-g16-g614.jpg" alt="Laptop">
+                <h3>ASUS ROG Strix G16</h3>
+                <span class="price">32 900 MDL</span>
+                <a href="pages/product.html" class="btn">Подробнее</a>
+            </div>
 
-    <script src="main.js"></script>
-    <script>
-        const container = document.getElementById('new-items');
-        products.slice(0, 3).forEach(p => {
-            container.innerHTML += `
-                <div class="card">
-                    <img src="${p.image}">
-                    <h3>${p.name}</h3>
-                    <span class="price">${p.price} MDL</span>
-                    <a href="product.html?id=${p.id}" class="btn">Подробнее</a>
-                </div>
-            `;
-        });
-    </script>
+            <div class="card">
+                <img src="https://xstore.md/images/product/2023/02/xstore.md-Plac%C4%83-video-Gigabyte-GeForce-RTX-4090-Gaming-OC.jpg" alt="GPU">
+                <h3>RTX 4090 GIGABYTE</h3>
+                <span class="price">45 000 MDL</span>
+                <a href="pages/product.html" class="btn">Подробнее</a>
+            </div>
+
+            <div class="card">
+                <img src="https://i.simpalsmedia.com/marketplace/products/original/e8ca209e23edc8bfef15e3a93b28b838.jpg" alt="CPU">
+                <h3>Intel i9-14900K</h3>
+                <span class="price">13 500 MDL</span>
+                <a href="pages/product.html" class="btn">Подробнее</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

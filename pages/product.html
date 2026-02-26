@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>TechnoStore - Информация о товаре</title>
+    <link rel="icon" href="../jpg/sait2.jpg" type="image/jpg">
+    <link rel="stylesheet" href="../css/product.css">
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="../index.html" class="logo">TechnoStore</a>
+            <nav class="menu">
+                <a href="../index.html">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="contacts.html">Контакты</a>
+            </nav>
+            <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
+        </div>
+    </header>
+
+    <main class="container">
+        <br><a href="catalog.html" class="back-link">← Вернуться в каталог</a>
+
+        <div id="product-content">
+            <div class="loader">Загрузка данных о товаре...</div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id')) || 1;
+            const product = products.find(p => p.id === id);
+            const container = document.getElementById('product-content');
+
+            if (product) {
+                container.innerHTML = `
+                    <div class="product-wrapper">
+                        <div class="image-section">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+
+                        <div class="info-section">
+                            <h1>${product.name}</h1>
+                            <div class="price-tag">${product.price} MDL</div>
+                            
+                            <div class="specs-block">
+                                <h3>Технические характеристики:</h3>
+                                <p>${product.specs}</p>
+                            </div>
+
+                            <div class="description-block">
+                                <h3>Описание:</h3>
+                                <p>${product.description || 'Высокопроизводительное решение для вашего ПК.'}</p>
+                            </div>
+
+                            <div class="actions">
+                                <button class="btn-buy" onclick="addToCart(${product.id})">Добавить в корзину</button>
+                                <a href="contacts.html" class="btn-contact">Заказать консультацию</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.title = product.name + " - TechnoStore";
+            } else {
+                container.innerHTML = "<h2 class='error'>Товар не найден</h2>";
+            }
+        });
+    </script>
+</body>
+</html>
