@@ -28,46 +28,57 @@
     </main>
 
     <script src="../js/main.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const id = parseInt(params.get('id')) || 1;
-            const product = products.find(p => p.id === id);
-            const container = document.getElementById('product-content');
+        window.onload = function() {
+            updateCounter();
+            let params = new URLSearchParams(window.location.search);
+            let currentId = params.get('id');
 
-            if (product) {
-                container.innerHTML = `
+            let container = document.getElementById('product-content');
+            let foundProduct = null;
+            if (currentId != null) {
+                for (let i = 0; i < products.length; i++) {
+                    if (products[i].id == currentId) {
+                        foundProduct = products[i];
+                        break;
+                    }
+                }
+            }
+            if (foundProduct != null) {
+                let html = `
                     <div class="product-wrapper">
+                        
                         <div class="image-section">
-                            <img src="${product.image}" alt="${product.name}">
+                            <img src="${foundProduct.image}" alt="Фото товара">
                         </div>
-
+                        
                         <div class="info-section">
-                            <h1>${product.name}</h1>
-                            <div class="price-tag">${product.price} MDL</div>
+                            <h1>${foundProduct.name}</h1>
+                            <div class="price-tag">${foundProduct.price} MDL</div>
                             
                             <div class="specs-block">
-                                <h3>Технические характеристики:</h3>
-                                <p>${product.specs}</p>
+                                <h3>Характеристики:</h3>
                             </div>
 
                             <div class="description-block">
                                 <h3>Описание:</h3>
-                                <p>${product.description || 'Высокопроизводительное решение для вашего ПК.'}</p>
+                                <p>${foundProduct.description}</p>
                             </div>
 
                             <div class="actions">
-                                <button class="btn-buy" onclick="addToCart(${product.id})">Добавить в корзину</button>
-                                <a href="contacts.html" class="btn-contact">Заказать консультацию</a>
+                                <button class="btn-buy" onclick="addToCart(${foundProduct.id})">
+                                    Добавить в корзину
+                                </button>
+                                <a href="contacts.html" class="btn-contact">Задать вопрос</a>
                             </div>
                         </div>
+                        
                     </div>
                 `;
-                document.title = product.name + " - TechnoStore";
-            } else {
-                container.innerHTML = "<h2 class='error'>Товар не найден</h2>";
+                container.innerHTML = html;                
             }
-        });
+        };
     </script>
 </body>
 </html>

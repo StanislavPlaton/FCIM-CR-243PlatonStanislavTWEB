@@ -21,83 +21,71 @@
     </header>
 
     <div class="container">
-        <h1>Ваша корзина</h1>
-        
-        <div id="cart-items">
-            <p style="text-align: center; padding: 50px; opacity: 0.5;">Загрузка товаров...</p>
-        </div>
-
-        <div class="cart-summary">
-            <h3 id="total-price">Итого: 0 MDL</h3>
-        </div>
-        
-        <div class="cart-actions">
-            <button class="btn btn-clear" onclick="clearCart()">
-                Очистить корзину
-            </button>
-            <a href="contacts.html" class="btn btn-order">
-                Оформить заказ
-            </a>
-        </div>
+    <h1>Корзина</h1>
+    <div id="cart-items"></div>
+    <h3 id="total-price" style="text-align: right;"></h3>
+    
+    <div style="text-align: right; margin-top: 20px;">
+        <button class="btn" onclick="clearCart()" style="background: #ccc; color: black;">Очистить всё</button>
+        <button class="btn" onclick="alert('Заказ оформлен!')">Оформить заказ</button>
     </div>
+</div>
 
-    <script src="../js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cartIds = JSON.parse(localStorage.getItem('myCart')) || [];
-            const container = document.getElementById('cart-items');
-            const totalElement = document.getElementById('total-price');
-            const countElement = document.getElementById('cart-count');
-            let total = 0;
+<script src="../js/main.js"></script>
+<script>
+    let cartString = localStorage.getItem('myCart');
+    let container = document.getElementById('cart-items');
+    let totalElement = document.getElementById('total-price');
+    
+    let totalSum = 0;
 
-            function renderCart() {
-                container.innerHTML = '';
-                total = 0;
+    if (cartString == null || cartString == "[]") {
+        container.innerHTML = "<h3>Ваша корзина пуста</h3>";
+    } else {
+        let cartIds = JSON.parse(cartString);
+        let html = "";
 
-                if (cartIds.length === 0) {
-                    container.innerHTML = `<p style="text-align:center; padding: 40px;">Корзина пуста. <a href="catalog.html" style="color:#ff6600">Перейти в каталог</a></p>`;
-                    totalElement.innerText = "Итого: 0 MDL";
-                    countElement.innerText = "0";
-                    return;
+        for (let i = 0; i < cartIds.length; i++) {
+            let currentId = cartIds[i];
+            let foundProduct = null;
+            for (let j = 0; j < products.length; j++) {
+                if (products[j].id == currentId) {
+                    foundProduct = products[j];
+                    break;
                 }
-
-                cartIds.forEach((id, index) => {
-                    const product = products.find(p => p.id === id);
-                    if (product) {
-                        total += product.price;
-                        container.innerHTML += `
-                            <div class="cart-item">
-                                <div class="cart-item-info">
-                                    <img src="${product.image}" width="60" alt="${product.name}">
-                                    <b>${product.name}</b>
-                                </div>
-                                <div class="cart-item-actions">
-                                    <span class="item-price">${product.price} MDL</span>
-                                    <button class="remove-btn" onclick="removeFromCart(${index})">❌</button>
-                                </div>
-                            </div>`;
-                    }
-                });
-
-                totalElement.innerText = "Итого: " + total.toLocaleString() + " MDL";
-                countElement.innerText = cartIds.length;
             }
+            if (foundProduct != null) {
+                totalSum += foundProduct.price;
+                
+                html += `
+                    <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; background:white; padding:15px; border-radius:8px; margin-bottom:10px; border:1px solid #ddd;">
+                        <div>
+                            <img src="${foundProduct.image}" width="50" style="vertical-align: middle; margin-right: 15px;">
+                            <b>${foundProduct.name}</b>
+                        </div>
+                        <div>
+                            <span style="font-weight:bold; margin-right:20px;">${foundProduct.price} MDL</span>
+                            <button onclick="removeItem(${i})" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">X</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        container.innerHTML = html;
+        totalElement.innerText = "Итого: " + totalSum + " MDL";
+    }
 
-            window.removeFromCart = (index) => {
-                cartIds.splice(index, 1);
-                localStorage.setItem('myCart', JSON.stringify(cartIds));
-                renderCart();
-            };
-
-            window.clearCart = () => {
-                if(confirm("Вы уверены, что хотите очистить корзину?")) {
-                    localStorage.removeItem('myCart');
-                    location.reload();
-                }
-            };
-
-            renderCart();
-        });
-    </script>
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem('myCart'));
+        cart.splice(index, 1);
+        localStorage.setItem('myCart', JSON.stringify(cart));
+        location.reload();
+    }
+    function clearCart() {
+        localStorage.removeItem('myCart');
+        location.reload();
+    }
+</script>
 </body>
 </html>
