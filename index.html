@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <link rel="icon" href="../jpg/sait2.jpg" type="image/jpg">
+    <link rel="icon" href="jpg/sait2.jpg" type="image/jpg">
     <meta charset="UTF-8">
     <title>TechnoStore - Главная</title>
-    
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -29,28 +28,34 @@
         
         <h2>Новинки</h2>
         
-        <div class="grid">
-            <div class="card">
-                <img src="https://xstore.md/images/htag/asus-rog-strix-g16-g614.jpg" alt="Laptop">
-                <h3>ASUS ROG Strix G16</h3>
-                <span class="price">32 900 MDL</span>
-                <a href="pages/product.html" class="btn">Подробнее</a>
+        <div class="grid" id="glav">
             </div>
-
-            <div class="card">
-                <img src="https://xstore.md/images/product/2023/02/xstore.md-Plac%C4%83-video-Gigabyte-GeForce-RTX-4090-Gaming-OC.jpg" alt="GPU">
-                <h3>RTX 4090 GIGABYTE</h3>
-                <span class="price">45 000 MDL</span>
-                <a href="pages/product.html" class="btn">Подробнее</a>
-            </div>
-
-            <div class="card">
-                <img src="https://i.simpalsmedia.com/marketplace/products/original/e8ca209e23edc8bfef15e3a93b28b838.jpg" alt="CPU">
-                <h3>Intel i9-14900K</h3>
-                <span class="price">13 500 MDL</span>
-                <a href="pages/product.html" class="btn">Подробнее</a>
-            </div>
-        </div>
     </div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        window.onload = function() {
+            updateCounter();
+
+            let grid = document.getElementById('glav');
+            let htmlContent = "";
+            for (let i = 0; i < 3; i++) {
+                let p = products[i];
+                
+                htmlContent += `
+                    <div class="card">
+                        <img src="${p.image}" alt="img">
+                        <h3>${p.name}</h3>
+                        <span class="price">${p.price} MDL</span>
+                        <br><br>
+                        <button class="btn" onclick="addToCart(${p.id})">В корзину</button>
+                        <a href="pages/product.html?id=${p.id}" style="color: #ff6600; font-weight: bold; margin-left: 10px;">Детали</a>
+                    </div>
+                `;
+            }
+            grid.innerHTML = htmlContent;
+        };
+    </script>
 </body>
 </html>

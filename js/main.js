@@ -86,7 +86,6 @@ function addToCart(id) {
 
     localStorage.setItem('myCart', JSON.stringify(cart));
     
-    alert("Успешно добавлено в корзину!");
     updateCounter();
 }
 
