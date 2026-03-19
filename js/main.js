@@ -13,7 +13,7 @@ let products = [
         price: 2000,
         image: "https://xstore.md/images/product/2023/02/xstore.md-Plac%C4%83-video-Gigabyte-GeForce-RTX-4090-Gaming-OC.jpg",
         description: "Описание",
-        sepcs: "Характеристики"
+        specs: "Характеристики"
     },
     {
         id: 3,
