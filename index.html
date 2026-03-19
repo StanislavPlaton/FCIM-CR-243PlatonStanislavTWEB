@@ -28,34 +28,10 @@
         
         <h2>Новинки</h2>
         
-        <div class="grid" id="glav">
+        <div class="grid" id="new-arrivals">
             </div>
     </div>
-
     <script src="js/main.js"></script>
-
-    <script>
-        window.onload = function() {
-            updateCounter();
-
-            let grid = document.getElementById('glav');
-            let htmlContent = "";
-            for (let i = 0; i < 3; i++) {
-                let p = products[i];
-                
-                htmlContent += `
-                    <div class="card">
-                        <img src="${p.image}" alt="img">
-                        <h3>${p.name}</h3>
-                        <span class="price">${p.price} MDL</span>
-                        <br><br>
-                        <button class="btn" onclick="addToCart(${p.id})">В корзину</button>
-                        <a href="pages/product.html?id=${p.id}" style="color: #ff6600; font-weight: bold; margin-left: 10px;">Детали</a>
-                    </div>
-                `;
-            }
-            grid.innerHTML = htmlContent;
-        };
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>

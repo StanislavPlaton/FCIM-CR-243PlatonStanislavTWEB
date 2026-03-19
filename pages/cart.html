@@ -30,62 +30,8 @@
             <button class="btn btn-order" onclick="alert('Заказ оформлен')">Оформить заказ</button>
         </div>
 </div>
+    <script src="../js/main.js"></script>
+    <script src="../js/cart.js"></script>
 
-<script src="../js/main.js"></script>
-<script>
-    let cartString = localStorage.getItem('myCart');
-    let container = document.getElementById('cart-items');
-    let totalElement = document.getElementById('total-price');
-    
-    let totalSum = 0;
-
-    if (cartString == null || cartString == "[]") {
-        container.innerHTML = "<h3>Ваша корзина пуста</h3>";
-    } else {
-        let cartIds = JSON.parse(cartString);
-        let html = "";
-
-        for (let i = 0; i < cartIds.length; i++) {
-            let currentId = cartIds[i];
-            let foundProduct = null;
-            for (let j = 0; j < products.length; j++) {
-                if (products[j].id == currentId) {
-                    foundProduct = products[j];
-                    break;
-                }
-            }
-            if (foundProduct != null) {
-                totalSum += foundProduct.price;
-                
-                html += `
-                    <div class="cart-item">
-                            <div style="display: flex; align-items: center; gap: 15px;">
-                                <img src="${foundProduct.image}" width="50" alt="item">
-                                <b>${foundProduct.name}</b>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 20px;">
-                                <span style="font-weight: bold;">${foundProduct.price} MDL</span>
-                                <button class="remove-btn" onclick="removeItem(${i})">×</button>
-                            </div>
-                        </div>  
-                `;
-            }
-        }
-        
-        container.innerHTML = html;
-        totalElement.innerText = "Итого: " + totalSum + " MDL";
-    }
-
-    function removeItem(index) {
-        let cart = JSON.parse(localStorage.getItem('myCart'));
-        cart.splice(index, 1);
-        localStorage.setItem('myCart', JSON.stringify(cart));
-        location.reload();
-    }
-    function clearCart() {
-        localStorage.removeItem('myCart');
-        location.reload();
-    }
-</script>
 </body>
 </html>

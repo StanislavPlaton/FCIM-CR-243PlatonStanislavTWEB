@@ -26,61 +26,7 @@
             <div class="loader">Загрузка данных о товаре...</div>
         </div>
     </main>
-
     <script src="../js/main.js"></script>
-    
-    <script>
-        window.onload = function() {
-            updateCounter();
-            let params = new URLSearchParams(window.location.search);
-            let currentId = params.get('id');
-
-            let container = document.getElementById('product-content');
-            let foundProduct = null;
-            if (currentId != null) {
-                for (let i = 0; i < products.length; i++) {
-                    if (products[i].id == currentId) {
-                        foundProduct = products[i];
-                        break;
-                    }
-                }
-            }
-            if (foundProduct != null) {
-                let html = `
-                    <div class="product-wrapper">
-                        
-                        <div class="image-section">
-                            <img src="${foundProduct.image}" alt="Фото товара">
-                        </div>
-                        
-                        <div class="info-section">
-                            <h1>${foundProduct.name}</h1>
-                            <div class="price-tag">${foundProduct.price} MDL</div>
-                            
-                            <div class="specs-block">
-                                <h3>Характеристики:</h3>
-                                <p>${foundProduct.specs}</p>
-                                
-                            </div>
-
-                            <div class="description-block">
-                                <h3>Описание:</h3>
-                                <p>${foundProduct.description}</p>
-                            </div>
-
-                            <div class="actions">
-                                <button class="btn-buy" onclick="addToCart(${foundProduct.id})">
-                                    Добавить в корзину
-                                </button>
-                                <a href="contacts.html" class="btn-contact">Задать вопрос</a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                `;
-                container.innerHTML = html;                
-            }
-        };
-    </script>
+    <script src="../js/product.js"></script>
 </body>
 </html>
