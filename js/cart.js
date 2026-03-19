@@ -37,9 +37,11 @@ function removeItem(index) {
     cart.splice(index, 1);
     localStorage.setItem('myCart', JSON.stringify(cart));
     renderCart();
+    updateCounter();
 }
 
 function clearCart() {
     localStorage.removeItem('myCart');
     renderCart();
+    updateCounter();
 }
