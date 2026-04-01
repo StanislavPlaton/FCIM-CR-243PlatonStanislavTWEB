@@ -1,5 +1,6 @@
-window.onload = function() {
+window.onload = async function() {
     updateCounter();
+    await loadProductsFromDB();
     renderCart();
 };
 
@@ -28,8 +29,12 @@ function renderCart() {
         }
     });
 
-    container.innerHTML = html || "<h3>Корзина пуста</h3>";
-    totalElement.innerText = "Итого: " + totalSum + " MDL";
+if (container) {
+        container.innerHTML = html || "<h3>Корзина пуста</h3>";
+    }
+    if (totalElement) {
+        totalElement.innerText = "Итого: " + totalSum + " MDL";
+}
 }
 
 function removeItem(index) {

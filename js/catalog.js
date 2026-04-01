@@ -1,10 +1,13 @@
-
-window.onload = function() {
+window.onload = async function() {
     updateCounter();
+
+    await loadProductsFromDB();
+
     let grid = document.getElementById('catalog-grid');
     if (!grid) return;
 
     let htmlContent = "";
+
     for (let i = 0; i < products.length; i++) {
         let p = products[i];
 
