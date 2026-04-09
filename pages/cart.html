@@ -12,9 +12,11 @@
         <div class="container navbar">
             <a href="../index.html" class="logo">TechnoStore</a>
             <nav class="menu">
+                <a href="pages/login.html" class="menu-item">Войти</a>
                 <a href="../index.html">Главная</a>
                 <a href="catalog.html">Каталог</a>
                 <a href="contacts.html">Контакты</a>
+                <a href="orders.html">Мои заказы</a>
             </nav>
             <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
         </div>
@@ -24,12 +26,36 @@
     <h1>Корзина</h1>
     <div id="cart-items"></div>
     <h3 id="total-price" style="text-align: right;"></h3>
-    
-        <div class="cart-actions">
-            <button class="btn btn-clear" onclick="clearCart()">Очистить всё</button>
-            <button class="btn btn-order" onclick="alert('Заказ оформлен')">Оформить заказ</button>
-        </div>
+
+<div class="cart-actions">
+    <button class="btn btn-clear" onclick="clearCart()">Очистить всё</button>
 </div>
+
+<div class="order-section">
+    <div class="order-box">
+        <h3>Оформление заказа</h3>
+        
+        <div class="form-group">
+            <label for="order-name">Ваше имя</label>
+            <input type="text" id="order-name" placeholder="Станислав" required>
+        </div>
+
+        <div class="form-group">
+            <label for="order-phone">Номер телефона</label>
+            <input type="text" id="order-phone" placeholder="+373 60 000 000" required>
+        </div>
+
+        <div class="form-group">
+            <label for="order-address">Адрес доставки</label>
+            <textarea id="order-address" placeholder="Город, улица, номер дома/квартиры" required></textarea>
+        </div>
+
+        <button class="btn-confirm" onclick="sendOrder()">
+            ОФОРМИТЬ ЗАКАЗ
+        </button>
+    </div>
+</div>
+
     <script src="../js/main.js"></script>
     <script src="../js/cart.js"></script>
 

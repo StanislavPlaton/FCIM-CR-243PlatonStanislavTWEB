@@ -2,7 +2,7 @@ let products = [];
 
 async function loadProductsFromDB() {
     try {
-        let response = await fetch('http://localhost:3000/products');
+        let response = await fetch('http://localhost:3000/api/products');
         
         products = await response.json(); 
         console.log("Товары с сервера успешно загружены:", products);
@@ -42,4 +42,9 @@ function updateCounter() {
     if (counterElement != null) {
         counterElement.innerText = count;
     }
+}
+
+function getCurrentUser() {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData) : null;
 }

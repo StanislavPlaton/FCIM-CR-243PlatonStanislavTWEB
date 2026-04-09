@@ -1,5 +1,6 @@
-window.onload = function() {
+window.onload = async function() {
     updateCounter();
+    await loadProductsFromDB();
     let params = new URLSearchParams(window.location.search);
     let currentId = params.get('id');
     let container = document.getElementById('product-content');
@@ -20,5 +21,10 @@ window.onload = function() {
                 </div>
             </div>`;
         document.title = foundProduct.name;
+    }else {
+        // На случай, если кто-то введет несуществующий ID в адресную строку
+        if (container) {
+            container.innerHTML = "<h2>Товар не найден</h2>";
+        }
     }
 };

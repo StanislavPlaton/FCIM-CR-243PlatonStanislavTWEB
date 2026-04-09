@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechnoStore - Вход</title>
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Вход в личный кабинет</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Логин</label>
+                    <input type="text" id="login-name" placeholder="Введите логин" required>
+                </div>
+                <div class="input-group">
+                    <label>Пароль</label>
+                    <input type="password" id="login-pass" placeholder="Введите пароль" required>
+                </div>
+                <button type="submit" class="btn-auth">Войти</button>
+            </form>
+            <p class="auth-footer">Нет аккаунта? <a href="register.html">Создать аккаунт</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const login = document.getElementById('login-name').value;
+            const password = document.getElementById('login-pass').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ login, password })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    window.location.href = '../index.html';
+                } else {
+                    alert(result.error || "Ошибка входа");
+                }
+            } catch (err) {
+                console.error("Ошибка:", err);
+                alert("Сервер Node.js не отвечает!");
+            }
+        };
+    </script>
+</body>
+</html>

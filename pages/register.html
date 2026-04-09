@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechnoStore - Регистрация</title>
+    <link rel="stylesheet" href="../css/style.css"> <link rel="stylesheet" href="../css/auth.css">  </head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Создать аккаунт</h2>
+            <form id="register-form">
+                <div class="input-group">
+                    <label>Логин</label>
+                    <input type="text" id="reg-login" placeholder="Придумайте логин" required minlength="3">
+                </div>
+                <div class="input-group">
+                    <label>Пароль</label>
+                    <input type="password" id="reg-password" placeholder="Придумайте пароль" required minlength="4">
+                </div>
+                <button type="submit" class="btn-auth">Зарегистрироваться</button>
+            </form>
+            <p class="auth-footer">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('register-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const login = document.getElementById('reg-login').value;
+            const password = document.getElementById('reg-password').value;
+
+            const response = await fetch('http://localhost:3000/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ login, password })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert("Успех! Теперь войдите в систему.");
+                window.location.href = 'login.html';
+            } else {
+                alert(result.error);
+            }
+        };
+    </script>
+</body>
+</html>

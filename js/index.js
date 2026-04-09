@@ -25,4 +25,6 @@ let limit = Math.min(3, products.length);
     }
     
     grid.innerHTML = html;
+
+    
 };

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechnoStore - Мои заказы</title>
+    <link rel="stylesheet" href="../css/orders.css">
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="../index.html" class="logo">TechnoStore</a>
+            <nav class="menu">
+                <a href="login.html" class="menu-item">Войти</a>
+                <a href="../index.html">Главная</a>
+                <a href="cart.html" class="cart-icon">🛒 Корзина</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">История ваших заказов</h1>
+            <a href="../index.html" class="btn-back">Вернуться к покупкам</a>
+        </div>
+        
+        <div id="orders-list" class="orders-container">
+            <p class="loading-text">Загрузка истории заказов...</p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = async function() {
+            const listContainer = document.getElementById('orders-list');
+            
+            const userData = localStorage.getItem('user');
+            if (!userData) {
+                alert("Пожалуйста, войдите в аккаунт, чтобы просмотреть свои заказы.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = JSON.parse(userData);
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/my-orders/${user.id}`);
+                
+                if (!response.ok) throw new Error('Ошибка сервера');
+                
+                const orders = await response.json();
+
+                if (orders.length === 0) {
+                    listContainer.innerHTML = `
+                        <div class="empty-msg">
+                            <h3>У вас пока нет оформленных заказов</h3>
+                        </div>`;
+                    return;
+                }
+
+                listContainer.innerHTML = orders.map(order => `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-number">Заказ №${order.id}</span>
+                            
+                        </div>
+                        
+                        <div class="order-info">
+                            <p class="order-items"><strong>Состав:</strong> <span>${order.items_list || 'Список недоступен'}</span></p>
+                            <p><strong>Адрес доставки:</strong> ${order.address}</p>
+                            <p><strong>Телефон:</strong> ${order.phone}</p>
+                        </div>
+                        
+                        <div class="order-footer">
+                            <span class="order-status">В обработке</span>
+                            <span class="order-price">${order.total_price} MDL</span>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (err) {
+                console.error("Ошибка сети:", err);
+                listContainer.innerHTML = "<p class='error-msg'>Не удалось связаться с сервером. Убедитесь, что Node.js запущен.</p>";
+            }
+        };
+    </script>
+</body>
+</html>
